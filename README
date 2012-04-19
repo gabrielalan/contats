@@ -9,13 +9,13 @@
 
       1. Python 2.6 ou maior instalado
 	  
-	  1. Flask instalado - http://flask.pocoo.org/
+      2. Flask instalado - http://flask.pocoo.org/
 
-      2. Caso o banco de dados sqlite não esteja no 
+      3. Caso o banco de dados sqlite não esteja no 
          projeto basta executar a função de criação:
 
          >>> from contats import db_init; 
-		 >>> db_init()
+         >>> db_init()
 
-      3. Depois disto é só rodar o arquivo contats.py
+      4. Depois disto é só rodar o arquivo contats.py
          e o sitema estará rodando em http://localhost:5000 ;)
