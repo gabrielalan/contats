@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<title>Contats</title>
+	
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css') }}" />
+	
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	
+	<script type="text/javascript">
+	
+	$(document).ready( onReady );
+	
+	function onReady()
+	{
+		$('#editar').modal( { show: false } );
+	}
+	
+	</script>
+	
+</head>
+<body>
+	
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" id="logo" href="#">Contats</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li class="active"><a href="#">Contatos</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	
+<div class="container">
+	
+	<div class="content">
+	
+		<hr />
+	
+		<div class="alerts">
+			{% for message in get_flashed_messages() %}
+				<div class="alert">
+					<a class="close" data-dismiss="alert">&times;</a>
+					<strong>Aviso!</strong> {{ message }}
+				</div>
+			{% endfor %}
+		</div>
+	
+		{% block body %}{% endblock %}
+	</div>
+
+	<hr />
+	
+	<div class="footer">
+		<address>
+			&copy; Contats
+		</address>
+	</div>
+	
+</div>
+
+</body>
+</html>

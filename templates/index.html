@@ -1,0 +1,107 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="row">
+	<div class="span8">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th></th>
+					<th colspan="2">Nome completo</th>
+					<th></th>
+					<th></th>
+				</tr>
+				<tr>
+					<th width="20">#</th>
+					<th>Nome</th>
+					<th>Sobrenome</th>
+					<th>E-mail</th>
+					<th width="100">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% if contatos %}
+				{% for contato in contatos %}
+				<tr>
+					<td>{{ contato.id }}</td>
+					<td{% if not contato.sobrenome %} colspan="2"{% endif %}>{{ contato.nome }}</td>
+					{% if contato.sobrenome %}<td>{{ contato.sobrenome }}</td>{% endif %}
+					<td>{{ contato.email }}</td>
+					<td>
+						<div class="btn-group">
+							<a class="btn" href="{{ url_for('editar', id = contato.id) }}"><i class="icon-pencil"></i> Editar</a>
+							<button class="btn dropdown-toggle" data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="{{ url_for('remover', id = contato.id) }}"><i class="icon-trash"></i> Remover</a></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+				{% endfor %}
+			{% else %}
+				<tr>
+					<td colspan="5"><i>Não existem contatos cadastrados</i></td>
+				</tr>
+			{% endif %}
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="span4">
+
+		<form action="{{ url_for('salvar') }}" class="well" method="POST">
+			<fieldset>
+				{% if contato %}
+					<input type="hidden" value="{{ contato.id }}" name="id" />
+				{% else %}
+					<input type="hidden" value="" name="id" />
+				{% endif %}
+			
+				<legend style="margin-bottom: 10px;">{% if not contato %}Cadastrar{% else %}Modificar{% endif %} contato</legend>
+				<div class="control-group">
+					<label class="control-label"><strong>Nome *</strong></label>
+					<div class="controls docs-input-sizes">
+						<input name="nome" class="span3" type="text" placeholder="João"{% if contato %} value="{{ contato.nome }}"{% endif %} />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label">Sobrenome</label>
+					<div class="controls docs-input-sizes">
+						<input name="sobrenome" class="span3" type="text" placeholder="da Silva"{% if contato %} value="{{ contato.sobrenome }}"{% endif %} />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label"><strong>E-mail *</strong></label>
+					<div class="controls docs-input-sizes">
+						<input name="email" class="span3" type="text" placeholder="exemplo@site.com"{% if contato %} value="{{ contato.email }}"{% endif %} />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label">Fone</label>
+					<div class="controls docs-input-sizes">
+						<input name="fone" class="span3" type="text" placeholder="9999-9999"{% if contato %} value="{{ contato.fone }}"{% endif %} />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label">Endereço</label>
+					<div class="controls docs-input-sizes">
+						<input name="endereco" class="span3" type="text" placeholder="Rua dos bobos, nº 0"{% if contato %} value="{{ contato.endereco }}"{% endif %} />
+					</div>
+				</div>
+
+				<button type="submit" class="btn btn-primary">Salvar{% if contato %} mudanças{% endif %}</button>
+				{% if not contato %}<input type="reset" class="btn" value="Limpar" />{% endif %}
+			</fieldset>
+		</form>
+	
+	</div>
+</div>
+
+{% endblock %}
